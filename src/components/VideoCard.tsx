@@ -30,23 +30,19 @@ export function VideoCard({
   return (
     <div
       className={[
-        'group relative overflow-hidden rounded-2xl border border-white/10 bg-white/5 p-4 shadow-[0_16px_50px_rgba(0,0,0,0.35)] backdrop-blur',
-        'transition hover:-translate-y-0.5 hover:border-white/20 hover:bg-white/10',
+        'theme-card group relative overflow-hidden rounded-2xl border p-4 shadow-[0_10px_30px_rgba(0,0,0,0.12)]',
+        'transition hover:-translate-y-0.5 hover:border-(--border-strong) hover:bg-(--card-strong)',
         watched ? 'opacity-75' : '',
       ].join(' ')}
     >
-      <div className="absolute inset-0 pointer-events-none opacity-0 transition-opacity group-hover:opacity-100">
-        <div className="absolute -inset-16 bg-linear-to-r from-violet-500/15 via-cyan-400/10 to-fuchsia-400/15 blur-2xl" />
-      </div>
-
       <div className="relative flex gap-3">
-        <label className="mt-0.5 inline-flex select-none items-center gap-2 text-sm text-slate-200">
+        <label className="theme-text-secondary mt-0.5 inline-flex select-none items-center gap-2 text-sm">
           <input
             aria-label="Mark as watched"
             type="checkbox"
             checked={watched}
             onChange={(e) => onToggleWatched(e.target.checked)}
-            className="h-4 w-4 cursor-pointer rounded border-white/20 bg-white/5 text-violet-400 focus:ring-2 focus:ring-violet-400/60"
+            className="h-4 w-4 cursor-pointer rounded border-(--border-strong) bg-(--card) text-[#45aaf2] focus:ring-2 focus:ring-[#45aaf2]/35"
           />
         </label>
 
@@ -54,11 +50,11 @@ export function VideoCard({
           <div className="flex flex-wrap items-start justify-between gap-2">
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
-                <h4 className="truncate text-base font-semibold tracking-tight text-slate-100">
+                <h4 className="theme-text-primary truncate text-base font-semibold tracking-tight">
                   {video.title}
                 </h4>
                 {isNew && (
-                  <span className="rounded-full border border-cyan-300/20 bg-cyan-400/10 px-2 py-0.5 text-xs font-medium text-cyan-200">
+                  <span className="theme-card-strong rounded-full border px-2 py-0.5 text-xs font-medium theme-text-primary">
                     New
                   </span>
                 )}
@@ -69,13 +65,13 @@ export function VideoCard({
                 )}
               </div>
 
-              <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-300">
+              <div className="theme-text-secondary mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
                 <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-slate-500/60" />
+                  <span className="theme-text-muted h-1.5 w-1.5 rounded-full bg-current/60" />
                   {formatIsoDate(video.date)}
                 </span>
                 <span className="inline-flex items-center gap-2">
-                  <span className="h-1.5 w-1.5 rounded-full bg-slate-500/60" />
+                  <span className="theme-text-muted h-1.5 w-1.5 rounded-full bg-current/60" />
                   <span className="truncate">{video.topic}</span>
                 </span>
               </div>
@@ -85,7 +81,7 @@ export function VideoCard({
               <button
                 type="button"
                 onClick={() => setShowNotes((s) => !s)}
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-1.5 text-sm text-slate-200 transition hover:border-white/20 hover:bg-white/10"
+                className="theme-button rounded-xl border px-3 py-1.5 text-sm transition"
               >
                 {showNotes ? 'Hide notes' : note ? 'Edit notes' : 'Add notes'}
               </button>
@@ -97,11 +93,11 @@ export function VideoCard({
                 className={[
                   'rounded-xl px-3 py-1.5 text-sm font-medium transition',
                   canOpen
-                    ? 'bg-linear-to-r from-violet-500/70 via-fuchsia-500/65 to-cyan-400/60 text-white hover:from-violet-500/85 hover:via-fuchsia-500/80 hover:to-cyan-400/75'
-                    : 'cursor-not-allowed border border-white/10 bg-white/5 text-slate-400',
+                    ? 'theme-button-primary border'
+                    : 'cursor-not-allowed theme-card border theme-text-muted',
                 ].join(' ')}
               >
-                Open
+                Watch
               </a>
             </div>
           </div>
@@ -110,7 +106,7 @@ export function VideoCard({
             <div className="mt-3">
               <label
                 htmlFor={`${key}:notes`}
-                className="block text-xs font-medium text-slate-300"
+                className="theme-text-secondary block text-xs font-medium"
               >
                 Notes
               </label>
@@ -120,7 +116,7 @@ export function VideoCard({
                 onChange={(e) => onChangeNote(e.target.value)}
                 placeholder="Add quick takeaways, timestamps, homework, etc."
                 rows={3}
-                className="mt-1 w-full rounded-xl border border-white/10 bg-black/20 px-3 py-2 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-violet-400/40 focus:ring-2 focus:ring-violet-400/30"
+                className="theme-input mt-1 w-full rounded-xl border px-3 py-2 text-sm outline-none focus:border-slate-400/50 focus:ring-2 focus:ring-slate-300/20"
               />
             </div>
           )}

@@ -26,7 +26,7 @@ export function WeekSection({
 
   return (
     <details
-      className="group rounded-3xl border border-white/10 bg-white/5 shadow-[0_18px_70px_rgba(0,0,0,0.35)] backdrop-blur"
+      className="theme-card group rounded-3xl border shadow-[0_12px_32px_rgba(0,0,0,0.12)]"
       open={isOpen}
       onToggle={(e) => setIsOpen((e.target as HTMLDetailsElement).open)}
     >
@@ -34,14 +34,14 @@ export function WeekSection({
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="min-w-0">
             <div className="flex items-center gap-3">
-              <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-black/20 text-slate-100">
+              <span className="theme-card inline-flex h-8 w-8 items-center justify-center rounded-xl border theme-text-primary">
                 <Chevron />
               </span>
               <div className="min-w-0">
-                <h3 className="truncate text-lg font-semibold tracking-tight text-slate-50">
+                <h3 className="theme-text-primary truncate text-lg font-semibold tracking-tight">
                   {week.week}
                 </h3>
-                <p className="mt-0.5 text-sm text-slate-300">
+                <p className="theme-text-secondary mt-0.5 text-sm">
                   {range ?? '—'}
                 </p>
               </div>
@@ -49,14 +49,14 @@ export function WeekSection({
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-sm text-slate-200">
+            <span className="theme-card rounded-full border px-3 py-1 text-sm theme-text-secondary">
               {videoCount} {videoCount === 1 ? 'video' : 'videos'}
             </span>
           </div>
         </div>
       </summary>
 
-      <div className="border-t border-white/10 px-5 pb-5 pt-4">
+      <div className="border-t border-(--border) px-5 pb-5 pt-4">
         <div className="grid gap-3">
           {week.videos
             .slice()
@@ -84,7 +84,7 @@ export function WeekSection({
 function Chevron() {
   return (
     <svg
-      className="h-4 w-4 text-slate-200 transition-transform group-open:rotate-180"
+      className="theme-text-secondary h-4 w-4 transition-transform group-open:rotate-180"
       viewBox="0 0 24 24"
       fill="none"
       aria-hidden="true"

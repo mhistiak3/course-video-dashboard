@@ -1,8 +1,36 @@
 @import "tailwindcss";
 
-/* App-wide base styles (dark, modern, dev-friendly) */
+/* App-wide theme tokens */
 :root {
   color-scheme: dark;
+  --app-bg: #0d1117;
+  --app-bg-muted: #0b0f14;
+  --surface: #0d1117;
+  --card: rgba(255, 255, 255, 0.05);
+  --card-strong: rgba(255, 255, 255, 0.08);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --primary: #45aaf2;
+  --primary-strong: #2d98da;
+}
+
+:root.light {
+  color-scheme: light;
+  --app-bg: #f3f5f8;
+  --app-bg-muted: #eef2f7;
+  --surface: #f7f9fc;
+  --card: rgba(255, 255, 255, 0.84);
+  --card-strong: rgba(255, 255, 255, 0.96);
+  --border: rgba(15, 23, 42, 0.12);
+  --border-strong: rgba(15, 23, 42, 0.2);
+  --text-primary: #0f172a;
+  --text-secondary: #334155;
+  --text-muted: #64748b;
+  --primary: #45aaf2;
+  --primary-strong: #2d98da;
 }
 
 html,
@@ -13,23 +41,21 @@ body,
 
 body {
   margin: 0;
-  @apply bg-[#070A12] text-slate-100;
+  background: var(--app-bg);
+  color: var(--text-primary);
   font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
 }
 
-/* Subtle premium backdrop */
+/* Clean neutral backdrop (no gradients) */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   z-index: -1;
   background:
-    radial-gradient(900px 500px at 18% 18%, rgba(124, 58, 237, 0.35), transparent 60%),
-    radial-gradient(900px 500px at 82% 22%, rgba(34, 211, 238, 0.22), transparent 60%),
-    radial-gradient(1200px 700px at 50% 120%, rgba(124, 58, 237, 0.22), transparent 55%),
-    linear-gradient(180deg, rgba(7, 10, 18, 1), rgba(7, 10, 18, 0.92));
-  filter: saturate(115%);
+    radial-gradient(1200px 700px at 50% -10%, rgba(255, 255, 255, 0.08), transparent 60%),
+    linear-gradient(180deg, var(--app-bg), var(--app-bg-muted));
 }
 
 /* Nicely-styled scrollbars (WebKit) */
@@ -40,8 +66,67 @@ body::before {
 *::-webkit-scrollbar-thumb {
   background: rgba(148, 163, 184, 0.25);
   border-radius: 999px;
-  border: 2px solid rgba(7, 10, 18, 1);
+  border: 2px solid var(--app-bg);
 }
 *::-webkit-scrollbar-thumb:hover {
   background: rgba(148, 163, 184, 0.38);
+}
+
+.theme-header {
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  border-color: var(--border);
+}
+
+.theme-card {
+  background: var(--card);
+  border-color: var(--border);
+}
+
+.theme-card-strong {
+  background: var(--card-strong);
+  border-color: var(--border-strong);
+}
+
+.theme-input {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text-primary);
+}
+
+.theme-input::placeholder {
+  color: var(--text-muted);
+}
+
+.theme-button {
+  background: var(--card);
+  border-color: var(--border);
+  color: var(--text-secondary);
+}
+
+.theme-button:hover {
+  background: var(--card-strong);
+  border-color: var(--border-strong);
+}
+
+.theme-button-primary {
+  background: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+.theme-button-primary:hover {
+  background: var(--primary-strong);
+  border-color: var(--primary-strong);
+}
+
+.theme-text-primary {
+  color: var(--text-primary);
+}
+
+.theme-text-secondary {
+  color: var(--text-secondary);
+}
+
+.theme-text-muted {
+  color: var(--text-muted);
 }

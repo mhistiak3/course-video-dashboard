@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import weeksJson from '@/data/weeks.json'
 import { WeekSection } from '@/components/WeekSection'
 import { useLocalStorageState } from '@/hooks/useLocalStorageState'
@@ -10,6 +10,10 @@ const weeksData = weeksJson as Week[]
 export default function App() {
   const [query, setQuery] = useState('')
   const [weekFilter, setWeekFilter] = useState<string>('all')
+  const [theme, setTheme] = useLocalStorageState<'dark' | 'light'>(
+    'cvd.theme.v1',
+    'dark',
+  )
   const [watchedByKey, setWatchedByKey] = useLocalStorageState<Record<string, boolean>>(
     'cvd.watched.v1',
     {},
@@ -55,6 +59,11 @@ export default function App() {
     return { totalWeeks: weeks.length, total, watched, notes, newlyAdded }
   }, [notesByKey, watchedByKey, weeks])
 
+  useEffect(() => {
+    const root = document.documentElement
+    root.classList.toggle('light', theme === 'light')
+  }, [theme])
+
   function setWatched(key: string, next: boolean) {
     setWatchedByKey((prev) => ({ ...prev, [key]: next }))
   }
@@ -63,24 +72,18 @@ export default function App() {
     setNotesByKey((prev) => ({ ...prev, [key]: next }))
   }
 
-  function resetProgress() {
-    setWatchedByKey({})
-    setNotesByKey({})
-  }
-
   return (
     <div className="min-h-full">
-      <header className="sticky top-0 z-10 border-b border-white/10 bg-[#070A12]/70 backdrop-blur">
+      <header className="theme-header sticky top-0 z-10 border-b backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-4 sm:px-6">
           <div className="flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between">
             <div className="min-w-0">
               <div className="inline-flex items-center gap-3">
-                <div className="h-10 w-10 rounded-2xl bg-linear-to-br from-violet-500/80 via-fuchsia-500/70 to-cyan-400/70 shadow-[0_18px_60px_rgba(124,58,237,0.28)]" />
                 <div className="min-w-0">
-                  <h1 className="truncate text-2xl font-semibold tracking-tight text-slate-50">
+                  <h1 className="theme-text-primary truncate text-2xl font-semibold tracking-tight">
                     Course Video Dashboard
                   </h1>
-                  <p className="mt-0.5 text-sm text-slate-300">
+                  <p className="theme-text-secondary mt-0.5 text-sm">
                     Organize private Facebook group videos by week — fast, structured, and searchable.
                   </p>
                 </div>
@@ -93,9 +96,9 @@ export default function App() {
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                   placeholder="Search: title, topic, week…"
-                  className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 outline-none focus:border-violet-400/40 focus:ring-2 focus:ring-violet-400/25"
+                  className="theme-input w-full rounded-2xl border px-4 py-2.5 text-sm outline-none focus:border-[#45aaf2]/70 focus:ring-2 focus:ring-[#45aaf2]/30"
                 />
-                <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-slate-500">
+                <div className="theme-text-muted pointer-events-none absolute inset-y-0 right-3 flex items-center">
                   <SearchIcon />
                 </div>
               </div>
@@ -103,7 +106,7 @@ export default function App() {
               <select
                 value={weekFilter}
                 onChange={(e) => setWeekFilter(e.target.value)}
-                className="h-[42px] w-full rounded-2xl border border-white/10 bg-white/5 px-3 text-sm text-slate-100 outline-none transition focus:border-violet-400/40 focus:ring-2 focus:ring-violet-400/25 sm:w-[170px]"
+                className="theme-input h-[42px] w-full rounded-2xl border px-3 text-sm outline-none transition focus:border-[#45aaf2]/70 focus:ring-2 focus:ring-[#45aaf2]/30 sm:w-[170px]"
               >
                 <option value="all">All weeks</option>
                 {weeks.map((w) => (
@@ -115,31 +118,32 @@ export default function App() {
 
               <button
                 type="button"
-                onClick={resetProgress}
-                className="h-[42px] w-full rounded-2xl border border-white/10 bg-white/5 px-4 text-sm text-slate-200 transition hover:border-white/20 hover:bg-white/10 sm:w-auto"
-                title="Clears watched + notes stored locally in this browser"
+                onClick={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+                className="theme-button-primary inline-flex h-[42px] w-full items-center justify-center rounded-2xl border px-3 text-sm transition sm:w-auto"
+                title="Toggle light and dark mode"
+                aria-label="Toggle light and dark mode"
               >
-                Reset
+                {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
               </button>
             </div>
           </div>
 
-          <div className="mt-3 flex flex-wrap gap-2 text-sm text-slate-200">
+          <div className="mt-3 flex flex-wrap gap-2 text-sm">
             <StatChip label="Weeks" value={stats.totalWeeks} />
             <StatChip label="Videos" value={stats.total} />
             <StatChip label="Watched" value={stats.watched} />
             <StatChip label="Notes" value={stats.notes} />
-            {stats.newlyAdded > 0 && <StatChip label="New" value={stats.newlyAdded} tone="cyan" />}
+            {stats.newlyAdded > 0 && <StatChip label="New" value={stats.newlyAdded} tone="subtle" />}
           </div>
         </div>
       </header>
 
       <main className="mx-auto max-w-6xl px-4 py-6 sm:px-6">
         {filteredWeeks.length === 0 ? (
-          <div className="rounded-3xl border border-white/10 bg-white/5 p-8 text-center backdrop-blur">
-            <h2 className="text-lg font-semibold text-slate-50">No matches</h2>
-            <p className="mt-2 text-sm text-slate-300">
-              Try a different search term, or switch back to <span className="text-slate-100">All weeks</span>.
+          <div className="theme-card rounded-3xl border p-8 text-center">
+            <h2 className="theme-text-primary text-lg font-semibold">No matches</h2>
+            <p className="theme-text-secondary mt-2 text-sm">
+              Try a different search term, or switch back to <span className="theme-text-primary">All weeks</span>.
             </p>
           </div>
         ) : (
@@ -158,7 +162,7 @@ export default function App() {
           </div>
         )}
 
-        <footer className="mt-10 pb-6 text-center text-xs text-slate-400">
+        <footer className="theme-text-muted mt-10 pb-6 text-center text-xs">
           Data source: local JSON (`src/data/weeks.json`). Watched + notes are stored only in this browser (localStorage).
         </footer>
       </main>
@@ -173,15 +177,15 @@ function StatChip({
 }: {
   label: string
   value: number
-  tone?: 'default' | 'cyan'
+  tone?: 'default' | 'subtle'
 }) {
   const toneClasses =
-    tone === 'cyan'
-      ? 'border-cyan-300/15 bg-cyan-400/10 text-cyan-100'
-      : 'border-white/10 bg-black/20 text-slate-200'
+    tone === 'subtle'
+      ? 'theme-card-strong theme-text-primary'
+      : 'theme-card theme-text-secondary'
   return (
     <span className={`rounded-full border px-3 py-1 ${toneClasses}`}>
-      <span className="text-slate-400">{label}</span>{' '}
+      <span className="theme-text-muted">{label}</span>{' '}
       <span className="font-medium">{value}</span>
     </span>
   )
@@ -205,6 +209,44 @@ function SearchIcon() {
         stroke="currentColor"
         strokeWidth="2"
         strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+function SunIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
+      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="2" />
+      <path
+        d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </svg>
+  )
+}
+
+function MoonIcon() {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="h-5 w-5"
+      aria-hidden="true"
+    >
+      <path
+        d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
     </svg>
   )
