@@ -32,7 +32,7 @@ export function VideoCard({
       className={[
         'theme-card group relative overflow-hidden rounded-2xl border p-4 shadow-[0_10px_30px_rgba(0,0,0,0.12)]',
         'transition hover:-translate-y-0.5 hover:border-(--border-strong) hover:bg-(--card-strong)',
-        watched ? 'opacity-75' : '',
+        watched ? 'border-[#45aaf2]/55 ring-1 ring-[#45aaf2]/35' : '',
       ].join(' ')}
     >
       <div className="relative flex gap-3">
@@ -59,7 +59,7 @@ export function VideoCard({
                   </span>
                 )}
                 {watched && (
-                  <span className="rounded-full border border-emerald-300/20 bg-emerald-400/10 px-2 py-0.5 text-xs font-medium text-emerald-200">
+                  <span className="theme-text-primary rounded-full border border-[#45aaf2]/55 bg-[#45aaf2]/20 px-2 py-0.5 text-xs font-medium">
                     Watched
                   </span>
                 )}
