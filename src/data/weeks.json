@@ -1,0 +1,59 @@
+[
+  {
+    "week": "Week 1",
+    "startDate": "2026-04-09",
+    "endDate": "2026-04-15",
+    "videos": [
+      {
+        "date": "2026-04-09",
+        "title": "Orientation Class (Live)",
+        "topic": "Orientation",
+        "url": "https://facebook.com/...",
+        "addedAt": "2026-04-09T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-10",
+        "title": "Human Body, Disease and Medicine",
+        "topic": "Medicine Basics",
+        "url": "https://facebook.com/...",
+        "addedAt": "2026-04-10T12:00:00.000Z"
+      },
+      {
+        "date": "2026-04-12",
+        "title": "Pharmacology Foundations (Recorded)",
+        "topic": "Pharmacology",
+        "url": "https://facebook.com/...",
+        "addedAt": "2026-04-12T08:30:00.000Z"
+      }
+    ]
+  },
+  {
+    "week": "Week 2",
+    "startDate": "2026-04-16",
+    "endDate": "2026-04-22",
+    "videos": [
+      {
+        "date": "2026-04-16",
+        "title": "Antibiotics — Part 1 (Live)",
+        "topic": "Antibiotics",
+        "url": "https://facebook.com/...",
+        "addedAt": "2026-04-16T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-18",
+        "title": "CNS Overview + Key Drug Classes",
+        "topic": "CNS",
+        "url": "https://facebook.com/...",
+        "addedAt": "2026-04-18T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-20",
+        "title": "Diabetes: Pathophysiology + Medications (Recorded)",
+        "topic": "Diabetes",
+        "url": "https://facebook.com/...",
+        "addedAt": "2026-04-20T10:00:00.000Z"
+      }
+    ]
+  }
+]
+
