@@ -15,6 +15,7 @@
         "date": "2026-04-09",
         "title": "Orientation Class (Class No:01)",
         "topic": "Orientation",
+        "isLive": true,
         "url": "https://www.facebook.com/share/v/1BPSmXKLwB/",
         "addedAt": "2026-04-09T10:00:00.000Z"
       },
@@ -31,6 +32,35 @@
         "topic": "Drug Release, Medicine Keywords, Dosage Form",
         "url": "https://www.facebook.com/share/v/1C1wnaZbTZ/",
         "addedAt": "2026-04-09T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-11",
+        "title": "দ্যা জার্নি অফ মেডিসিন (Pharmacokinetics, Pharmacodynamics) Class No:04",
+        "topic": "Route of Administration,",
+        "url": "https://www.facebook.com/share/v/1Cp8PDE7Av/",
+        "addedAt": "2026-04-11T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-11",
+        "title": "Pharmacokinetics, Pharmacodynamics (Class No:05)",
+        "topic": "Pharmacokinetics, Pharmacodynamics",
+        "url": "https://www.facebook.com/share/v/1C1wnaZbTZ/",
+        "addedAt": "2026-04-11T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-13",
+        "title": "প্রেসক্রিপশন সহজে বুঝার গাইডলাইন (Class No: 05)",
+        "topic": "Prescription Guidelines",
+        "url": "https://www.facebook.com/share/v/1Cp8PDE7Av/",
+        "addedAt": "2026-04-13T10:00:00.000Z"
+      },
+      {
+        "date": "2026-04-13",
+        "title": "Live Class  (Class No: 06)",
+        "topic": "(QnA)",
+        "isLive": true,
+        "url": "https://www.facebook.com/share/v/16bHrYHmkx/",
+        "addedAt": "2026-04-13T10:00:00.000Z"
       }
     ]
   }
